@@ -22,7 +22,7 @@ constantly==15.1.0
 crypto==1.4.1
 cryptography==2.7
 defusedxml==0.5.0
-Django==2.0.3
+Django==2.0.12
 django-adminlte-ui==1.4.0
 django-celery==3.2.2
 django-cors-headers==3.1.0
