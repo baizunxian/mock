@@ -1,0 +1,76 @@
+from django.shortcuts import render
+from django.http import JsonResponse,HttpResponse
+import json,os
+import yaml
+from mock.settings import BASE_DIR
+apifile = os.path.join(BASE_DIR,'api_file')
+print(apifile)
+# data = {
+#     'xiaobai':{
+#         "A":"A",
+#         "B":"B",
+#         "C":2
+#     }
+# }
+# f = open('%s\\%s.yaml'%(api_file,'123'),'w',encoding='utf8')
+# yaml.dump(data,f)
+
+def save_api(name,body):
+    # e=open('%s\\%s.yaml'%(api_file,name))
+    f = open('%s\\%s.yaml'%(apifile,name),'w',encoding='utf8')
+    print(body)
+    yaml.dump(body,f)
+
+    # f = e.read()
+    # a=yaml.load(f,Loader=yaml.FullLoader)
+    # if a.get('xiaobai'):
+    #     print(a.get('xiaobai'))
+    #     print('当前接口已有')
+    # else:
+    #     print('ok')
+    # e.close()
+    f.close()
+
+
+# print(a['name'])
+def load_api(api):
+    # f = e.read()
+    e=open('%s\\%s.yaml'%(apifile,api))
+    a=yaml.load(e,Loader=yaml.FullLoader)
+    if a.get(api):
+        print(a.get(api))
+        e.close()
+        return str('当前接口已有')
+    else:
+        e.close()
+        return str('ok')
+
+
+
+
+# Create your views here.
+# def addapi(request):
+#
+def api(request,api):
+    api_name = api
+    print(api_name)
+    if request.method== "POST":
+        body_data = request.body
+        data= json.loads(body_data)
+        # print(data)
+        name = data.get("name")
+        body=data.get("body")
+        # print(name)
+        print(body)
+        save_api(name,data)
+        if id == 3:
+            data ={
+                "id":3,
+                "msg":"成功",
+                "code":123456,
+            }
+            return JsonResponse(data)
+        else:
+            return JsonResponse({"code":-1,"msg":"错误"})
+    else:
+        return HttpResponse('lll')
